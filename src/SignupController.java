@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 public class SignupController {
 
+    private final AuthService authService = new AuthService();
+
 
     @FXML
     private TextField usernameField;
@@ -35,8 +37,8 @@ public class SignupController {
 
     @FXML
     private void handleSignup() {
-        String username = usernameField.getText();
-        String email = emailField.getText();
+        String username = usernameField.getText().trim();
+        String email = emailField.getText().trim();
         String password = passwordField.getText();
         String confirm = confirmPasswordField.getText();
 
@@ -53,12 +55,23 @@ public class SignupController {
             return;
         }
 
-        // At this point, you can save the data to your database or array
+        AuthService.SignupResult result = authService.signup(username, email, password);
+        if (result.isSuccess()) {
+            messageLabel.setStyle("-fx-text-fill: green;");
+            messageLabel.setText(result.getMessage());
+            clearSignupForm();
+            return;
+        }
 
-        System.out.println("Signed up user: " + username + ", " + email);
+        messageLabel.setStyle("-fx-text-fill: red;");
+        messageLabel.setText(result.getMessage());
+    }
 
-        messageLabel.setStyle("-fx-text-fill: green;");
-        messageLabel.setText("Signup successful!");
+    private void clearSignupForm() {
+        usernameField.clear();
+        emailField.clear();
+        passwordField.clear();
+        confirmPasswordField.clear();
     }
 
     @FXML

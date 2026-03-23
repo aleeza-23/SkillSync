@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
+    private final AuthService authService = new AuthService();
+
     @FXML
     private TextField usernameField;
 
@@ -27,7 +29,7 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
-        String username = usernameField.getText();
+        String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
         // Simple validation
@@ -37,12 +39,16 @@ public class LoginController {
             return;
         }
 
-        // At this point, you can verify the credentials against your database
+        boolean isValidLogin = authService.login(username, password);
+        if (isValidLogin) {
+            messageLabel.setStyle("-fx-text-fill: green;");
+            messageLabel.setText("Login successful!");
+            passwordField.clear();
+            return;
+        }
 
-        System.out.println("Logged in user: " + username);
-
-        messageLabel.setStyle("-fx-text-fill: green;");
-        messageLabel.setText("Login successful!");
+        messageLabel.setStyle("-fx-text-fill: red;");
+        messageLabel.setText("Invalid username/email or password");
     }
 
     @FXML
