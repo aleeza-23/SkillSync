@@ -33,8 +33,8 @@
             </columnConstraints>
 
 
-            <Label style="-fx-font-weight: bold;" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="usernameField" promptText="Enter your username" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label style="-fx-font-weight: bold;" text="Username or Email:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="usernameField" promptText="Enter username or email" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
 
             <Label style="-fx-font-weight: bold;" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
