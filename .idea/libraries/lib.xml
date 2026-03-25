@@ -5,15 +5,21 @@
       <root url="file://$PROJECT_DIR$/../../../../openjfx-26_windows-x64_bin-sdk/javafx-sdk-26/lib" />
       <root url="file://$PROJECT_DIR$/../../../../javafx-sdk-26/lib" />
       <root url="file://$PROJECT_DIR$/../../../../sqljdbc_13.4/enu/jars" />
+      <root url="file://$PROJECT_DIR$/../../../../Libraries/openjfx-26_windows-x64_bin-sdk/javafx-sdk-26/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../Libraries/sqljdbc_13.4/sqljdbc_13.4/enu/jars" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../../../sqljdbc_13.4/enu/jars" />
+      <root url="file://$PROJECT_DIR$/../../../../Libraries/sqljdbc_13.4/sqljdbc_13.4/enu/jars" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/../../../../javafx-sdk-26/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Libraries/openjfx-26_windows-x64_bin-sdk/javafx-sdk-26/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Libraries/sqljdbc_13.4/sqljdbc_13.4/enu/jars" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../openjfx-26_windows-x64_bin-sdk/javafx-sdk-26/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../openjfx-26_windows-x64_bin-sdk/javafx-sdk-26/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../sqljdbc_13.4/enu/jars" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Libraries/sqljdbc_13.4/sqljdbc_13.4/enu/jars" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../sqljdbc_13.4/enu/jars" recursive="false" type="SOURCES" />
   </library>
 </component>

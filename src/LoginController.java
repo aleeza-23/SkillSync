@@ -6,10 +6,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import java.sql.SQLException;
 
 public class LoginController {
 
     private final AuthService authService = new AuthService();
+    private final UserRepository userRepository = new UserRepository();
 
     @FXML
     private TextField usernameField;
@@ -44,6 +46,17 @@ public class LoginController {
             messageLabel.setStyle("-fx-text-fill: green;");
             messageLabel.setText("Login successful!");
             passwordField.clear();
+            
+            try {
+                int userId = userRepository.getUserIdByIdentifier(username);
+                User user = userRepository.getUserById(userId);
+                UserSession.setCurrentUser(user);
+                navigateToDashboard();
+            } catch (SQLException e) {
+                System.out.println("Error fetching user data: " + e.getMessage());
+                messageLabel.setStyle("-fx-text-fill: red;");
+                messageLabel.setText("Error loading user profile");
+            }
             return;
         }
 
@@ -65,6 +78,20 @@ public class LoginController {
             stage.setScene(scene);
             stage.setTitle("SkillSync - Sign Up");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToDashboard() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("SkillSync - Dashboard");
+        } catch (Exception e) {
+            System.out.println("Error navigating to dashboard: " + e.getMessage());
             e.printStackTrace();
         }
     }

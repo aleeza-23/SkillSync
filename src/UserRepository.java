@@ -33,5 +33,67 @@ public class UserRepository {
             }
         }
     }
+
+    public int getUserIdByIdentifier(String identifier) throws SQLException {
+        String sql = "SELECT id FROM dbo.users WHERE username = ? OR email = ?";
+
+        try (Connection connection = DatabaseManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, identifier);
+            statement.setString(2, identifier);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+                return -1;
+            }
+        }
+    }
+
+    public User getUserById(int userId) throws SQLException {
+        String sql = "SELECT id, username, email, password_hash, skills, experience, profile_picture FROM dbo.users WHERE id = ?";
+
+        try (Connection connection = DatabaseManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToUser(resultSet);
+                }
+                return null;
+            }
+        }
+    }
+
+    public void updateUserProfile(int userId, String skills, String experience, byte[] profilePicture) throws SQLException {
+        String sql = "UPDATE dbo.users SET skills = ?, experience = ?, profile_picture = ? WHERE id = ?";
+
+        try (Connection connection = DatabaseManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, skills);
+            statement.setString(2, experience);
+            if (profilePicture != null) {
+                statement.setBytes(3, profilePicture);
+            } else {
+                statement.setNull(3, java.sql.Types.VARBINARY);
+            }
+            statement.setInt(4, userId);
+            statement.executeUpdate();
+        }
+    }
+
+    private User mapResultSetToUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getInt("id"));
+        user.setUsername(resultSet.getString("username"));
+        user.setEmail(resultSet.getString("email"));
+        user.setPasswordHash(resultSet.getString("password_hash"));
+        user.setSkills(resultSet.getString("skills"));
+        user.setExperience(resultSet.getString("experience"));
+        user.setProfilePicture(resultSet.getBytes("profile_picture"));
+        return user;
+    }
 }
 

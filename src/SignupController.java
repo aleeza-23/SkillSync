@@ -77,6 +77,7 @@ public class SignupController {
     @FXML
     private void handleNavigateToLogin() {
         try {
+            UserSession.logout();
             // Load login.fxml
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
