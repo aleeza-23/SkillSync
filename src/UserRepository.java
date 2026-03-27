@@ -5,14 +5,15 @@ import java.sql.SQLException;
 
 public class UserRepository {
 
-    public void createUser(String username, String email, String passwordHash) throws SQLException {
-        String sql = "INSERT INTO dbo.users (username, email, password_hash) VALUES (?, ?, ?)";
+    public void createUser(String username, String email, String passwordHash,String role) throws SQLException {
+        String sql = "INSERT INTO dbo.users (username, email, password_hash,role) VALUES (?, ?, ?,?)";
 
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             statement.setString(2, email);
             statement.setString(3, passwordHash);
+            statement.setString(4, role);
             statement.executeUpdate();
         }
     }
@@ -52,7 +53,7 @@ public class UserRepository {
     }
 
     public User getUserById(int userId) throws SQLException {
-        String sql = "SELECT id, username, email, password_hash, skills, experience, profile_picture FROM dbo.users WHERE id = ?";
+        String sql = "SELECT id, username, email, password_hash, skills, experience, profile_picture,role FROM dbo.users WHERE id = ?";
 
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -93,6 +94,7 @@ public class UserRepository {
         user.setSkills(resultSet.getString("skills"));
         user.setExperience(resultSet.getString("experience"));
         user.setProfilePicture(resultSet.getBytes("profile_picture"));
+        user.setRole(resultSet.getString("role"));
         return user;
     }
 }

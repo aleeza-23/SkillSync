@@ -51,7 +51,11 @@ public class LoginController {
                 int userId = userRepository.getUserIdByIdentifier(username);
                 User user = userRepository.getUserById(userId);
                 UserSession.setCurrentUser(user);
-                navigateToDashboard();
+                if (user.getRole().equalsIgnoreCase("client")) {
+                    navigateToClientDashboard();
+                } else if (user.getRole().equalsIgnoreCase("freelancer")) {
+                    navigateToFreelancerDashboard();
+                }
             } catch (SQLException e) {
                 System.out.println("Error fetching user data: " + e.getMessage());
                 messageLabel.setStyle("-fx-text-fill: red;");
@@ -92,6 +96,32 @@ public class LoginController {
             stage.setTitle("SkillSync - Dashboard");
         } catch (Exception e) {
             System.out.println("Error navigating to dashboard: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+
+    }
+    private void navigateToClientDashboard() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("client_dashboard.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Client Dashboard");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void navigateToFreelancerDashboard() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("freelancer_dashboard.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Freelancer Dashboard");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
