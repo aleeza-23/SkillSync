@@ -6,7 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
+import javafx.scene.control.ComboBox;
 public class SignupController {
 
     private final AuthService authService = new AuthService();
@@ -23,6 +23,8 @@ public class SignupController {
 
     @FXML
     private PasswordField confirmPasswordField;
+    @FXML
+    private ComboBox<String> roleComboBox;
 
 
     @FXML
@@ -33,7 +35,10 @@ public class SignupController {
 
     @FXML
     private Label messageLabel;
-
+    @FXML
+    public void initialize() {
+        roleComboBox.getItems().addAll("freelancer", "client");
+    }
 
     @FXML
     private void handleSignup() {
@@ -41,9 +46,10 @@ public class SignupController {
         String email = emailField.getText().trim();
         String password = passwordField.getText();
         String confirm = confirmPasswordField.getText();
+        String role = roleComboBox.getValue();
 
         // Simple validation
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()|| role == null) {
             messageLabel.setStyle("-fx-text-fill: red;");
             messageLabel.setText("Please fill in all fields");
             return;
@@ -55,7 +61,7 @@ public class SignupController {
             return;
         }
 
-        AuthService.SignupResult result = authService.signup(username, email, password);
+        AuthService.SignupResult result = authService.signup(username, email, password, role);
         if (result.isSuccess()) {
             messageLabel.setStyle("-fx-text-fill: green;");
             messageLabel.setText(result.getMessage());

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="MyJobsController">
+
+    <!-- TOP -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10;">
+            <Button fx:id="backBtn" text="← Back" style="-fx-background-color: transparent; -fx-text-fill: #273c75; -fx-font-weight: bold;" onAction="#handleBack" />
+            <Label text="My Posted Jobs" style="-fx-font-size: 20px;" />
+        </HBox>
+    </top>
+
+    <!-- CENTER -->
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="jobsContainer" spacing="15" style="-fx-padding: 15;" />
+        </ScrollPane>
+    </center>
+
+</BorderPane>

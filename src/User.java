@@ -6,12 +6,13 @@ public class User {
     private String skills;
     private String experience;
     private byte[] profilePicture;
+    private String role;
 
     public User() {
     }
 
     public User(int id, String username, String email, String passwordHash, 
-                String skills, String experience, byte[] profilePicture) {
+                String skills, String experience, byte[] profilePicture,String role) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -19,6 +20,7 @@ public class User {
         this.skills = skills;
         this.experience = experience;
         this.profilePicture = profilePicture;
+        this.role=role;
     }
 
     // Getters
@@ -50,6 +52,8 @@ public class User {
         return profilePicture;
     }
 
+    public String getRole(){return role;}
+
     // Setters
     public void setId(int id) {
         this.id = id;
@@ -78,4 +82,6 @@ public class User {
     public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
     }
+
+    public void setRole(String role){this.role=role;}
 }

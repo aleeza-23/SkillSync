@@ -4,11 +4,11 @@ public class AuthService {
 
     private final UserRepository userRepository = new UserRepository();
 
-    public SignupResult signup(String username, String email, String password) {
+    public SignupResult signup(String username, String email, String password, String role) {
         String passwordHash = PasswordHasher.hash(password);
 
         try {
-            userRepository.createUser(username, email, passwordHash);
+            userRepository.createUser(username, email, passwordHash,role);
             return SignupResult.success("Signup successful! You can log in now.");
         } catch (SQLException e) {
             if (e.getErrorCode() == 2627 || e.getErrorCode() == 2601) {
