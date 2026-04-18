@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="560.0"
+            style="-fx-background-color: #f0f2f5;"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ChatController">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12"
+              style="-fx-padding: 12 15 12 15; -fx-background-color: #2c3e50;">
+            <Button fx:id="backBtn"
+                    text="← Back"
+                    onAction="#handleBack"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px;" />
+            <VBox spacing="1">
+                <Label fx:id="chatTitleLabel"
+                       text="Chat"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                <Label fx:id="chatSubtitleLabel"
+                       text=""
+                       style="-fx-font-size: 11px; -fx-text-fill: #95a5a6;" />
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- MESSAGE BUBBLES -->
+    <center>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-background: #f0f2f5;">
+            <VBox fx:id="messagesContainer" spacing="6" style="-fx-padding: 15 12 10 12;" />
+        </ScrollPane>
+    </center>
+
+    <!-- INPUT BAR -->
+    <bottom>
+        <HBox spacing="10" alignment="CENTER"
+              style="-fx-padding: 10 14 10 14; -fx-background-color: white;
+                     -fx-border-color: #dcdde1; -fx-border-width: 1 0 0 0;">
+            <TextField fx:id="messageInput"
+                       promptText="Type a message…"
+                       HBox.hgrow="ALWAYS"
+                       style="-fx-background-radius: 22; -fx-border-radius: 22;
+                              -fx-border-color: #dcdde1; -fx-padding: 9 16 9 16;
+                              -fx-font-size: 13px;" />
+            <Button fx:id="sendBtn"
+                    text="Send"
+                    onAction="#handleSend"
+                    style="-fx-background-color: #273c75; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-font-size: 13px;
+                           -fx-padding: 9 20 9 20; -fx-background-radius: 22;" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

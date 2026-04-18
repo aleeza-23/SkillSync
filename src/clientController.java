@@ -23,6 +23,9 @@ public class clientController {
     private Button applicationsBtn;
 
     @FXML
+    private Button messagesBtn;
+
+    @FXML
     public void initialize() {
         User user = UserSession.getCurrentUser();
         welcomeLabel.setText("What do you want to do today?");
@@ -30,15 +33,13 @@ public class clientController {
     }
     @FXML
     private void handleLogout() {
-        UserSession.setCurrentUser(null);
-
         try {
+            Stage stage = (Stage) logoutBtn.getScene().getWindow();
+            UserSession.logout();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
             Scene scene = new Scene(loader.load());
-
-            Stage stage = (Stage) logoutBtn.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Login");
+            stage.setTitle("SkillSync - Log In");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +82,28 @@ public class clientController {
 
     @FXML
     private void handleApplications() {
-        // show applications received
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("applications_received.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) applicationsBtn.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Applications Received");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleMessages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("inbox.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) messagesBtn.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Messages");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
