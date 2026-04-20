@@ -2,7 +2,15 @@ import java.sql.SQLException;
 
 public class AuthService {
 
-    private final UserRepository userRepository = new UserRepository();
+    private final UserRepository userRepository;
+
+    public AuthService() {
+        this(new UserRepository());
+    }
+
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public SignupResult signup(String username, String email, String password, String role) {
         String passwordHash = PasswordHasher.hash(password);

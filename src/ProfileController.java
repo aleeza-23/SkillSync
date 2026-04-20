@@ -133,12 +133,24 @@ public class ProfileController {
     @FXML
     private void handleBack() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+            User user = UserSession.getCurrentUser();
+            String fxml = "dashboard.fxml";
+            String title = "SkillSync - Dashboard";
+
+            if (user != null && "freelancer".equalsIgnoreCase(user.getRole())) {
+                fxml = "freelancer_dashboard.fxml";
+                title = "Freelancer Dashboard";
+            } else if (user != null && "client".equalsIgnoreCase(user.getRole())) {
+                fxml = "client_dashboard.fxml";
+                title = "Client Dashboard";
+            }
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
             Scene scene = new Scene(fxmlLoader.load());
 
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("SkillSync - Dashboard");
+            stage.setTitle(title);
         } catch (Exception e) {
             System.out.println("Error navigating to dashboard: " + e.getMessage());
             e.printStackTrace();
