@@ -4,11 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.sql.SQLException;
@@ -17,7 +15,6 @@ public class ProfileController {
 
     private final UserRepository userRepository = new UserRepository();
     private byte[] currentProfilePicture;
-    private File selectedImageFile;
 
     @FXML
     private Label usernameLabel;
@@ -59,18 +56,10 @@ public class ProfileController {
             experienceTextArea.setText(user.getExperience() != null ? user.getExperience() : "");
 
             currentProfilePicture = user.getProfilePicture();
-            if (currentProfilePicture != null && currentProfilePicture.length > 0) {
-                try {
-                    ByteArrayInputStream bais = new ByteArrayInputStream(currentProfilePicture);
-                    Image image = new Image(bais);
-                    profileImageView.setImage(image);
-                    pictureStatusLabel.setText("(Current picture)");
-                } catch (Exception e) {
-                    System.out.println("Error loading profile picture: " + e.getMessage());
-                }
-            } else {
-                pictureStatusLabel.setText("(No picture)");
-            }
+            AvatarUtils.applyAvatar(profileImageView, currentProfilePicture);
+            pictureStatusLabel.setText(currentProfilePicture != null && currentProfilePicture.length > 0
+                    ? "(Current picture)"
+                    : "(No picture)");
         }
     }
 
@@ -87,11 +76,9 @@ public class ProfileController {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            selectedImageFile = file;
             try {
                 currentProfilePicture = Files.readAllBytes(file.toPath());
-                Image image = new Image(file.toURI().toString());
-                profileImageView.setImage(image);
+                AvatarUtils.applyAvatar(profileImageView, currentProfilePicture);
                 pictureStatusLabel.setText("(Selected: " + file.getName() + ")");
             } catch (Exception e) {
                 System.out.println("Error loading image: " + e.getMessage());

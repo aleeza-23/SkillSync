@@ -2,9 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.ImageView?>
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0"
+            style="-fx-background-color: #f5f6fa;"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="clientController">
@@ -24,15 +25,13 @@
         <!-- Spacer (pushes items to right) -->
         <Region HBox.hgrow="ALWAYS" />
 
-        <!-- Profile Icon (fake PFP) -->
-        <Circle radius="18"
-                style="-fx-fill: #ecf0f1;" />
+        <ImageView fx:id="topProfileImageView" fitWidth="36" fitHeight="36" preserveRatio="true" />
 
         <!-- Logout Button -->
         <Button fx:id="logoutBtn"
                 text="Logout"
                 onAction="#handleLogout"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"
 
         />
 
@@ -42,11 +41,17 @@
     <Label fx:id="welcomeLabel"
            layoutX="20"
            layoutY="90"
-           style="-fx-font-size: 22px; -fx-font-weight: bold;"
-           text="Hello, User" />
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2f3640;"
+           text="What do you want to do today?" />
+
+    <Label fx:id="subtitleLabel"
+           layoutX="20"
+           layoutY="120"
+           style="-fx-font-size: 13px; -fx-text-fill: #636e72;"
+           text="Client Dashboard" />
 
     <!-- Main Buttons -->
-    <VBox spacing="20"
+    <VBox spacing="18"
           alignment="CENTER"
           AnchorPane.topAnchor="60"
           AnchorPane.bottomAnchor="0"
@@ -56,22 +61,32 @@
         <Button fx:id="postJobBtn"
                 text="Post Job"
                 onAction="#handlePostJob"
-                prefWidth="250" />
+                prefWidth="260"
+                style="-fx-background-color: #273c75; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 20 12 20; -fx-background-radius: 8;" />
 
         <Button fx:id="myJobsBtn"
                 text="My Jobs"
                 onAction="#handleMyJobs"
-                prefWidth="250" />
+                prefWidth="260"
+                style="-fx-background-color: #273c75; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 20 12 20; -fx-background-radius: 8;" />
 
         <Button fx:id="applicationsBtn"
                 text="Applications Received"
                 onAction="#handleApplications"
-                prefWidth="250" />
+                prefWidth="260"
+                style="-fx-background-color: #636e72; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 20 12 20; -fx-background-radius: 8;" />
 
         <Button fx:id="messagesBtn"
                 text="Messages"
                 onAction="#handleMessages"
-                prefWidth="250" />
+                prefWidth="260"
+                style="-fx-background-color: #636e72; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 20 12 20; -fx-background-radius: 8;" />
+
+        <Button fx:id="editProfileBtn"
+                text="Edit Profile"
+                onAction="#handleEditProfile"
+                prefWidth="260"
+                style="-fx-background-color: #273c75; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 20 12 20; -fx-background-radius: 8;" />
 
     </VBox>
 

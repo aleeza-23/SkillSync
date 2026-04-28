@@ -3,12 +3,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class freelancerController {
 
     @FXML private Label topUsernameLabel;
     @FXML private Label welcomeLabel;
+    @FXML private Label subtitleLabel;
+    @FXML private ImageView topProfileImageView;
     @FXML private Button logoutBtn;
     @FXML private Button browseJobsBtn;
     @FXML private Button myApplicationsBtn;
@@ -18,9 +21,12 @@ public class freelancerController {
     @FXML
     public void initialize() {
         User user = UserSession.getCurrentUser();
+        AvatarUtils.applyAvatar(topProfileImageView, null);
+        subtitleLabel.setText("Freelancer Dashboard");
+        welcomeLabel.setText("What do you want to do today?");
         if (user != null) {
             topUsernameLabel.setText("Hello, " + user.getUsername());
-            welcomeLabel.setText("What do you want to do today?");
+            AvatarUtils.applyAvatar(topProfileImageView, user.getProfilePicture());
         }
     }
 

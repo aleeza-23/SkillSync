@@ -17,7 +17,7 @@ public class AuthServiceTest {
         FakeUserRepository repo = new FakeUserRepository();
         AuthService service = new AuthService(repo);
 
-        AuthService.SignupResult result = service.signup("alice", "alice@example.com", "Pass#123", "freelancer");
+        AuthService.SignupResult result = service.signup("alice", "alice@example.com", "Pass#123", "freelancer", null);
 
         assertTrue(result.isSuccess(), "Signup should succeed");
         assertEquals("Signup successful! You can log in now.", result.getMessage(), "Signup success message mismatch");
@@ -33,7 +33,7 @@ public class AuthServiceTest {
         repo.createUserException = sqlException(2627, "duplicate");
         AuthService service = new AuthService(repo);
 
-        AuthService.SignupResult result = service.signup("bob", "bob@example.com", "Pass#123", "client");
+        AuthService.SignupResult result = service.signup("bob", "bob@example.com", "Pass#123", "client", null);
 
         assertFalse(result.isSuccess(), "Signup should fail on duplicate");
         assertEquals("Username or email already exists", result.getMessage(), "Duplicate message mismatch");
@@ -44,7 +44,7 @@ public class AuthServiceTest {
         repo.createUserException = sqlException(50000, "generic db failure");
         AuthService service = new AuthService(repo);
 
-        AuthService.SignupResult result = service.signup("charlie", "charlie@example.com", "Pass#123", "client");
+        AuthService.SignupResult result = service.signup("charlie", "charlie@example.com", "Pass#123", "client", null);
 
         assertFalse(result.isSuccess(), "Signup should fail on DB error");
         assertEquals("Database error while creating account", result.getMessage(), "DB error message mismatch");
@@ -111,9 +111,10 @@ public class AuthServiceTest {
         private String lastEmail;
         private String lastPasswordHash;
         private String lastRole;
+        private byte[] lastProfilePicture;
 
         @Override
-        public void createUser(String username, String email, String passwordHash, String role) throws SQLException {
+        public void createUser(String username, String email, String passwordHash, String role, byte[] profilePicture) throws SQLException {
             if (createUserException != null) {
                 throw createUserException;
             }
@@ -121,6 +122,7 @@ public class AuthServiceTest {
             this.lastEmail = email;
             this.lastPasswordHash = passwordHash;
             this.lastRole = role;
+            this.lastProfilePicture = profilePicture;
         }
 
         @Override

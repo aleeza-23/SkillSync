@@ -56,24 +56,22 @@ public class PostJobController {
         try {
             int clientId = UserSession.getCurrentUser().getId();
 
-            Connection conn = DatabaseManager.getConnection();
-
             String sql = "INSERT INTO JOBS (title, description, budget, deadline, client_id) VALUES (?, ?, ?, ?, ?)";
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, title);
-            ps.setString(2, desc);
-            ps.setDouble(3, budget);
-            ps.setDate(4, Date.valueOf(deadlinePicker.getValue()));
-            ps.setInt(5, clientId);
-
-            int rows = ps.executeUpdate();
+            int rows;
+            try (Connection conn = DatabaseManager.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, title);
+                ps.setString(2, desc);
+                ps.setDouble(3, budget);
+                ps.setDate(4, Date.valueOf(deadlinePicker.getValue()));
+                ps.setInt(5, clientId);
+                rows = ps.executeUpdate();
+            }
 
             if (rows > 0) {
                 showMessage("Job posted successfully!", "green");
-                Stage stage = (Stage) submitButton.getScene().getWindow();
+                Stage stage = (Stage) titleField.getScene().getWindow();
                 stage.close();
-                clearForm();
             } else {
                 showMessage("Failed to post job", "red");
             }

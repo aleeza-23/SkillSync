@@ -40,13 +40,20 @@
             <DatePicker fx:id="deadlinePicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
             <!-- Submit Button -->
-            <Button text="Submit Job"
+            <Button fx:id="submitButton"
+                    text="Submit Job"
                     onAction="#handleSubmitJob"
                     style="-fx-background-color: #273c75; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15 8 15;"
                     GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4"
                     GridPane.halignment="CENTER" />
 
+            <Label fx:id="messageLabel"
+                   style="-fx-text-fill: red;"
+                   GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5"
+                   GridPane.halignment="CENTER" />
+
             <rowConstraints>
+                <RowConstraints />
                 <RowConstraints />
                 <RowConstraints />
                 <RowConstraints />

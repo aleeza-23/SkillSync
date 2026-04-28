@@ -3,15 +3,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import java.io.ByteArrayInputStream;
-import java.sql.SQLException;
+
 public class clientController {
 
     @FXML
     private Label welcomeLabel;
+    @FXML
+    private Label subtitleLabel;
+    @FXML
+    private ImageView topProfileImageView;
 
     @FXML
     private Button postJobBtn;
@@ -29,7 +31,12 @@ public class clientController {
     public void initialize() {
         User user = UserSession.getCurrentUser();
         welcomeLabel.setText("What do you want to do today?");
-        topUsernameLabel.setText("Hello, " + user.getUsername());
+        subtitleLabel.setText("Client Dashboard");
+        AvatarUtils.applyAvatar(topProfileImageView, null);
+        if (user != null) {
+            topUsernameLabel.setText("Hello, " + user.getUsername());
+            AvatarUtils.applyAvatar(topProfileImageView, user.getProfilePicture());
+        }
     }
     @FXML
     private void handleLogout() {
@@ -49,6 +56,8 @@ public class clientController {
 
     @FXML
     private Button logoutBtn;
+    @FXML
+    private Button editProfileBtn;
     @FXML
     private void handlePostJob() {
         try {
@@ -101,6 +110,19 @@ public class clientController {
             Stage stage = (Stage) messagesBtn.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Messages");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleEditProfile() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("profile.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) editProfileBtn.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("SkillSync - Edit Profile");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,11 +12,11 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public SignupResult signup(String username, String email, String password, String role) {
+    public SignupResult signup(String username, String email, String password, String role, byte[] profilePicture) {
         String passwordHash = PasswordHasher.hash(password);
 
         try {
-            userRepository.createUser(username, email, passwordHash,role);
+            userRepository.createUser(username, email, passwordHash, role, profilePicture);
             return SignupResult.success("Signup successful! You can log in now.");
         } catch (SQLException e) {
             if (e.getErrorCode() == 2627 || e.getErrorCode() == 2601) {

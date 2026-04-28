@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 public class UserRepository {
 
-    public void createUser(String username, String email, String passwordHash,String role) throws SQLException {
-        String sql = "INSERT INTO dbo.users (username, email, password_hash,role) VALUES (?, ?, ?,?)";
+    public void createUser(String username, String email, String passwordHash, String role, byte[] profilePicture) throws SQLException {
+        String sql = "INSERT INTO dbo.users (username, email, password_hash, role, profile_picture) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -14,6 +14,11 @@ public class UserRepository {
             statement.setString(2, email);
             statement.setString(3, passwordHash);
             statement.setString(4, role);
+            if (profilePicture != null && profilePicture.length > 0) {
+                statement.setBytes(5, profilePicture);
+            } else {
+                statement.setNull(5, java.sql.Types.VARBINARY);
+            }
             statement.executeUpdate();
         }
     }
